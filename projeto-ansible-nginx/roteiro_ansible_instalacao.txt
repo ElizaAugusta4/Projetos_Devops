@@ -1,0 +1,100 @@
+roteiro passo a passo que inclui a instalação do Windows Subsystem for Linux (WSL) e do Ansible em um ambiente Windows:
+
+Passo 1: Instalar o Windows Subsystem for Linux (WSL)
+
+O WSL permite que você execute um ambiente Linux no Windows. Siga estas etapas para instalar o WSL:
+
+Abra o PowerShell como administrador. Você pode fazer isso pressionando a tecla Win + X e selecionando "Windows PowerShell (Admin)".
+
+Execute o seguinte comando para habilitar o recurso WSL:
+
+powershell
+Copy code
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+Reinicie o seu computador quando solicitado.
+
+Após a reinicialização, abra a Microsoft Store no Windows e pesquise por uma distribuição Linux, como o Ubuntu. Clique em "Instalar" para baixar e configurar a distribuição.
+
+Após a instalação, siga as instruções para criar um nome de usuário e senha para a distribuição Linux.
+
+Passo 2: Atualizar a Distribuição Linux
+
+Abra o terminal da sua distribuição Linux (por exemplo, o terminal do Ubuntu) e execute os seguintes comandos para atualizar os pacotes do sistema:
+
+bash
+Copy code
+sudo apt update
+sudo apt upgrade -y
+Passo 3: Instalar o Ansible no WSL
+
+Dentro do terminal do WSL, execute o seguinte comando para instalar o Ansible:
+
+bash
+Copy code
+sudo apt install ansible
+Passo 4: Verificar a Instalação do Ansible
+
+Após a instalação, verifique se o Ansible foi instalado corretamente executando o seguinte comando:
+
+bash
+Copy code
+ansible --version
+Isso deve exibir a versão do Ansible instalada no ambiente WSL.
+
+Passo 5: Configurar o Ansible (Opcional)
+
+Você pode configurar o Ansible ajustando as configurações no arquivo ansible.cfg. O arquivo de configuração pode ser criado em seu diretório de projeto ou em /etc/ansible/ansible.cfg.
+
+Passo 6: Criar um Arquivo de Inventário (Hosts)
+
+Crie um arquivo de inventário (ou arquivo "hosts") no seu ambiente WSL para definir as máquinas com as quais o Ansible deve interagir.
+
+Passo 7: Testar o Ansible
+
+Crie um playbook YAML em seu diretório de projeto no ambiente WSL e execute-o como faria em um ambiente Linux padrão.
+
+Agora você tem o Ansible instalado e configurado em seu ambiente WSL no Windows. Você pode criar playbooks e automatizar tarefas de gerenciamento de configuração e implantação em servidores e sistemas Linux, aproveitando a facilidade de uso do Ansible e a flexibilidade do WSL. Certifique-se de consultar a documentação do Ansible para aprender mais sobre suas capacidades e recursos avançados.
+
+
+Problemas caso não encontre o ansible: 
+
+Para resolver isso, você pode adicionar o repositório oficial do Ansible e, em seguida, instalar o Ansible. Siga estas etapas:
+
+Passo 1: Adicionar o repositório do Ansible
+
+Abra o terminal dentro do seu ambiente WSL (Ubuntu) no Windows.
+
+Execute os seguintes comandos para adicionar o repositório do Ansible:
+
+bash
+Copy code
+sudo apt update
+sudo apt install software-properties-common
+sudo apt-add-repository --yes --update ppa:ansible/ansible
+Passo 2: Instalar o Ansible
+
+Agora que você adicionou o repositório oficial do Ansible, execute o seguinte comando para instalar o Ansible:
+
+bash
+Copy code
+sudo apt install ansible
+Passo 3: Verificar a Instalação do Ansible
+
+Após a instalação, verifique se o Ansible foi instalado corretamente executando o seguinte comando:
+
+bash
+Copy code
+ansible --version
+Isso deve exibir a versão do Ansible instalada no ambiente WSL.
+
+Dessa forma, você deve conseguir instalar o Ansible no seu ambiente WSL no Windows. Certifique-se de seguir as etapas acima exatamente como descritas, e você deve ser capaz de usar o Ansible sem problemas.
+
+
+comandos para verificar o ip da maquina virtual no virtual box e o usuario:
+
+ifconfig
+# ou
+ip a
+ 
+
+ whoami

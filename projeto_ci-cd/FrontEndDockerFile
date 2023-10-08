@@ -1,0 +1,18 @@
+# Use a base image do Node.js
+FROM node:14
+
+# Diretório de trabalho na imagem
+WORKDIR /usr/src/app/frontend
+
+# Copie o código do frontend para o diretório de trabalho
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm install
+
+# Copie todo o código do frontend para o diretório de trabalho
+COPY frontend/ .
+
+# Exponha a porta em que o frontend está executando
+EXPOSE 5000
+
+# Comando para iniciar o frontend
+CMD ["node", "index.js"]

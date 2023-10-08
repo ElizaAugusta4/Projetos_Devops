@@ -1,0 +1,21 @@
+# Usa a imagem Python como base
+FROM python:3.8-slim
+
+# Configura variáveis de ambiente
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Define o diretório de trabalho como /app
+WORKDIR /app
+
+# Copia o código do projeto para o diretório de trabalho
+COPY . /app
+
+# Instalação das dependências do projeto
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expõe a porta 5000
+EXPOSE 5000
+
+# Comando para iniciar a aplicação
+CMD ["python", "app.py"]

@@ -1,0 +1,26 @@
+# Use a base image do Node.js com ambiente de produção
+FROM node:14 as build
+
+# Diretório de trabalho na imagem
+WORKDIR /usr/src/app/backend
+
+# Copie o código do backend para o diretório de trabalho
+COPY backend/package.json backend/package-lock.json ./
+RUN npm install
+
+# Copie todo o código do backend para o diretório de trabalho
+COPY backend/ .
+
+# Execute o build do backend (gerar os arquivos estáticos)
+RUN npm run build
+
+# Imagem leve de produção do servidor da aplicação React
+FROM nginx:alpine
+
+# Copie os arquivos estáticos do build para o diretório do servidor Nginx
+COPY --from=build /usr/src/app/backend/build /usr/share/nginx/html
+
+# Exponha a porta em que o servidor Nginx está executando
+EXPOSE 80
+
+# Nginx é iniciado automaticamente pela imagem base, não precisa de CMD

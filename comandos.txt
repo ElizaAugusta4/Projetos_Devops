@@ -1,0 +1,55 @@
+Os DevOps precisam estar familiarizados com uma variedade de comandos no terminal para realizar tarefas relacionadas à automação, gerenciamento de servidores e implantação de aplicativos. Aqui está uma lista de comandos no terminal que são úteis para DevOps:
+
+Comandos de Navegação e Gerenciamento de Diretórios:
+
+cd: Muda o diretório atual.
+ls: Lista os arquivos e diretórios em um diretório.
+pwd: Exibe o caminho completo do diretório atual.
+mkdir: Cria um novo diretório.
+rmdir ou rm -r: Remove um diretório (tenha cuidado ao usar isso).
+Comandos de Gerenciamento de Arquivos:
+
+touch: Cria um novo arquivo vazio.
+cp: Copia arquivos e diretórios.
+mv: Move ou renomeia arquivos e diretórios.
+rm: Remove arquivos.
+Comandos de Visualização de Conteúdo:
+
+cat: Exibe o conteúdo de um arquivo.
+less ou more: Visualiza o conteúdo de um arquivo por páginas.
+head e tail: Exibem o início ou o final de um arquivo, respectivamente.
+Comandos de Edição de Texto:
+
+nano, vim, emacs, gedit, etc.: Editores de texto no terminal.
+Comandos de Gerenciamento de Processos:
+
+ps: Lista processos em execução.
+top ou htop: Monitora o uso de recursos do sistema.
+kill: Encerra processos.
+Comandos de Gerenciamento de Pacotes:
+
+apt (para sistemas baseados em Debian) ou yum (para sistemas baseados em Red Hat): Gerenciadores de pacotes para instalar, atualizar e remover software.
+npm ou yarn: Gerenciadores de pacotes para JavaScript.
+pip: Gerenciador de pacotes para Python.
+gem: Gerenciador de pacotes para Ruby.
+Comandos de Rede:
+
+ping: Testa a conectividade com um host.
+curl ou wget: Baixa conteúdo da web.
+ifconfig ou ip: Exibe informações sobre interfaces de rede.
+netstat ou ss: Exibe informações sobre portas e conexões de rede.
+Comandos de Gerenciamento de Servidores:
+
+ssh: Conecta-se a servidores remotamente via SSH.
+scp: Copia arquivos de/para servidores remotos.
+rsync: Sincroniza arquivos e diretórios entre sistemas.
+systemctl (para sistemas baseados em systemd): Gerencia serviços e unidades do sistema.
+Comandos de Versionamento de Código:
+
+git: Ferramenta de controle de versão.
+svn: Sistema de controle de versão Subversion.
+Comandos de Scripting e Automação:
+
+bash ou sh: Shell de script para automação.
+cron: Agendador de tarefas para executar comandos em horários específicos.
+Lembre-se de que a escolha de comandos pode variar dependendo do sistema operacional e das ferramentas específicas que você está usando em sua infraestrutura de DevOps. É importante estar familiarizado com os comandos relevantes para suas tarefas e ambiente.

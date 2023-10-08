@@ -1,0 +1,10 @@
+2023-08-03 13:56:27,825 - DEBUG - Mensagem de debug
+2023-08-03 13:56:27,825 - DEBUG - Mensagem de debug
+2023-08-03 13:56:27,827 - INFO - Mensagem de informação
+2023-08-03 13:56:27,827 - INFO - Mensagem de informação
+2023-08-03 13:56:27,827 - WARNING - Mensagem de aviso
+2023-08-03 13:56:27,827 - WARNING - Mensagem de aviso
+2023-08-03 13:56:27,829 - ERROR - Mensagem de erro
+2023-08-03 13:56:27,829 - ERROR - Mensagem de erro
+2023-08-03 13:56:27,830 - CRITICAL - Mensagem crítica
+2023-08-03 13:56:27,830 - CRITICAL - Mensagem crítica

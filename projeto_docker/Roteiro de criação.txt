@@ -1,0 +1,115 @@
+Pararocesso de configuração do ambiente de desenvolvimento usando o Docker para criar um ambiente Node.js com Express e MongoDB. Certifique-se de ter o Docker e o Docker Compose instalados em sua máquina antes de começar.
+
+Passo 1: Crie a estrutura do projeto
+Primeiro, crie um diretório para o seu projeto e, dentro dele, crie uma pasta chamada app para o código do aplicativo Node.js.
+
+
+mkdir meu-projeto-docker
+cd meu-projeto-docker
+mkdir app
+
+Passo 2: Configurar o Express
+Dentro da pasta app, crie um arquivo chamado app.js para o aplicativo Express básico.
+
+// app/app.js
+
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send('Hello Dockerized Node.js App!');
+});
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+Passo 3: Dockerfile para o Node.js
+Agora, crie um arquivo chamado Dockerfile na raiz do projeto para criar a imagem do Node.js.
+
+Dockerfile
+
+# Dockerfile
+
+# Use a imagem oficial do Node.js como a base
+FROM node:14
+
+# Defina o diretório de trabalho dentro do contêiner
+WORKDIR /usr/src/app
+
+# Copie o arquivo package.json e package-lock.json para o diretório de trabalho
+COPY app/package*.json ./
+
+# Instale as dependências do Node.js
+RUN npm install
+
+# Copie o código da aplicação para o contêiner
+COPY app/ .
+
+# Exponha a porta do aplicativo
+EXPOSE 3000
+
+# Comando para iniciar o aplicativo
+CMD ["node", "app.js"]
+
+Passo 4: Dockerfile para o MongoDB
+Vamos criar um Dockerfile para o MongoDB. Crie um arquivo chamado Dockerfile-mongo na raiz do projeto.
+
+Dockerfile
+
+# Dockerfile-mongo
+
+# Use a imagem oficial do MongoDB como a base
+FROM mongo:latest
+
+# Exponha a porta do MongoDB
+EXPOSE 27017
+
+# Defina as configurações personalizadas do MongoDB (opcional)
+# Exemplo: CMD ["mongod", "--bind_ip_all"]
+
+Passo 5: Configurar o Docker Compose
+Agora, crie um arquivo chamado docker-compose.yml na raiz do projeto para orquestrar os contêineres do Node.js e MongoDB.
+
+yaml
+
+version: '3.8'
+
+services:
+  node-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: node-app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+
+  mongo:
+    build:
+      context: .
+      dockerfile: Dockerfile-mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
+
+Passo 6: Executar os contêineres
+Agora, abra um terminal na raiz do projeto e execute o seguinte comando para iniciar os contêineres usando o Docker Compose:
+
+
+docker-compose up
+Isso iniciará os contêineres do Node.js e do MongoDB. O aplicativo Node.js estará acessível em http://localhost:3000.
+
+Parar os contêineres: Para parar os contêineres, pressione Ctrl + C no terminal onde você executou o docker-compose up.
+
+Limpar os contêineres: Para remover os contêineres e volumes criados pelo Docker Compose, execute:
+
+docker-compose down
+Agora você tem um ambiente de desenvolvimento Node.js com Express e MongoDB configurado usando o Docker. Isso permitirá que você desenvolva seu aplicativo em qualquer máquina de forma consistente e isolada. Lembre-se de que, se você fizer alterações nos arquivos Dockerfile ou docker-compose.yml, precisará executar o docker-compose up --build para aplicar as alterações.

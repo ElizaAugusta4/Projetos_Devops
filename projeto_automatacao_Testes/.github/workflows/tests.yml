@@ -1,0 +1,28 @@
+name: Testes Automatizados
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v2
+
+      - name: Instalar Node.js e Dependências
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Instalar Dependências do Projeto
+        run: npm install
+
+      - name: Executar Testes com Mocha
+        run: npm test
+
+      - name: Executar Testes com Postman
+        run: npm run postman-test

@@ -1,0 +1,148 @@
+Etapa 1: Criar o Aplicativo (API REST)
+Para começar, crie um pequeno aplicativo de exemplo que será testado. Suponha que estamos criando uma API REST simples em Node.js usando o framework Express. Aqui está um exemplo mínimo:
+
+Inicie um novo projeto Node.js:
+
+
+mkdir meu-app
+cd meu-app
+npm init -y
+Instale as dependências necessárias:
+
+css
+
+npm install express body-parser
+Crie um arquivo app.js com o seguinte código de exemplo:
+
+javascript
+
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
+
+app.use(bodyParser.json());
+
+app.get('/api', (req, res) => {
+  res.json({ message: 'Bem-vindo à API!' });
+});
+
+app.post('/api/somar', (req, res) => {
+  const { num1, num2 } = req.body;
+  if (!num1 || !num2) {
+    return res.status(400).json({ error: 'Certifique-se de fornecer "num1" e "num2".' });
+  }
+
+  const resultado = num1 + num2;
+  res.json({ resultado });
+});
+
+const port = 3000;
+app.listen(port, () => {
+  console.log(`Servidor rodando em http://localhost:${port}`);
+});
+Etapa 2: Escrever Testes Automatizados (Mocha e Chai)
+Agora, vamos criar testes automatizados para nossa API utilizando Mocha como o framework de testes e Chai para asserções.
+
+Instale as dependências necessárias:
+
+css
+
+npm install mocha chai supertest --save-dev
+Crie um diretório chamado test para os arquivos de teste.
+
+Dentro do diretório test, crie um arquivo chamado api.test.js com o seguinte conteúdo:
+
+javascript
+
+const chai = require('chai');
+const expect = chai.expect;
+const supertest = require('supertest');
+
+const app = require('../app');
+
+describe('Testes da API', () => {
+  it('Deve retornar uma mensagem de boas-vindas', async () => {
+    const response = await supertest(app).get('/api');
+    expect(response.status).to.equal(200);
+    expect(response.body.message).to.equal('Bem-vindo à API!');
+  });
+
+  it('Deve somar dois números', async () => {
+    const response = await supertest(app).post('/api/somar').send({ num1: 2, num2: 3 });
+    expect(response.status).to.equal(200);
+    expect(response.body.resultado).to.equal(5);
+  });
+
+  it('Deve retornar erro ao somar números inválidos', async () => {
+    const response = await supertest(app).post('/api/somar').send({ num1: 2 });
+    expect(response.status).to.equal(400);
+    expect(response.body.error).to.equal('Certifique-se de fornecer "num1" e "num2".');
+  });
+});
+Etapa 3: Configurar o Postman para Testes de API
+O Postman é uma ferramenta excelente para testar APIs manualmente, mas também pode ser integrado em um ambiente de testes automatizados. A seguir, criaremos uma coleção no Postman para os testes automatizados.
+
+Instale o Postman em sua máquina, se ainda não o fez.
+
+Crie uma nova coleção chamada "Testes Automatizados".
+
+Adicione duas requisições à coleção: uma para a rota GET /api e outra para a rota POST /api/somar.
+
+Para cada requisição, adicione testes usando a sintaxe do Postman para verificar se as respostas estão corretas.
+
+Exporte a coleção para um arquivo JSON e guarde-o em uma pasta chamada postman na raiz do projeto.
+
+Etapa 4: Configurar o Pipeline de Integração Contínua (CI)
+Para configurar o pipeline de integração contínua, utilizaremos o GitHub Actions como exemplo. Com isso, sempre que houver alterações no repositório do código, os testes serão executados automaticamente.
+
+Crie um arquivo chamado .github/workflows/tests.yml no diretório raiz do projeto com o seguinte conteúdo:
+yaml
+Copy code
+name: Testes Automatizados
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v2
+
+      - name: Instalar Node.js e Dependências
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Instalar Dependências do Projeto
+        run: npm install
+
+      - name: Executar Testes com Mocha
+        run: npm test
+
+      - name: Executar Testes com Postman
+        run: npm run postman-test
+No arquivo package.json, adicione um novo script chamado postman-test para executar os testes do Postman usando a CLI do Newman (o executor de coleções do Postman):
+json
+Copy code
+{
+  "scripts": {
+    "test": "mocha test/**/*.test.js",
+    "postman-test": "newman run postman/testes-automatizados.json"
+  }
+}
+Certifique-se de ter o Newman instalado no projeto:
+
+Copy code
+npm install -g newman
+Etapa 5: Commit e Push
+Agora, faça um commit de todo o código, incluindo os arquivos de teste, o arquivo postman/testes-automatizados.json e o arquivo .github/workflows/tests.yml. Em seguida, faça o push para o repositório remoto no GitHub.
+
+Com isso, o GitHub Actions executará automaticamente os testes sempre que houver alterações no repositório, fornecendo feedback rápido sobre a qualidade do código.
+
+Lembre-se de que este é apenas um exemplo simples para fins didáticos. Em projetos reais, você pode precisar de uma configuração mais elaborada para lidar com várias dependências, variáveis de ambiente, e outros cenários específicos. Espero que este guia tenha sido útil! Se precisar de mais ajuda ou esclarecimentos adicionais, fique à vontade para perguntar.

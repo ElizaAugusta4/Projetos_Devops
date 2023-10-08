@@ -1,0 +1,81 @@
+Passo 1: Configuração das credenciais da AWS
+
+Certifique-se de ter o AWS CLI configurado em sua máquina com as chaves de acesso corretas. Para configurar o AWS CLI, execute aws configure e insira suas chaves de acesso quando solicitado.
+Passo 2: Estrutura do projeto
+
+Crie uma nova pasta chamada "terraform-aws-project".
+
+Dentro da pasta, crie os seguintes arquivos:
+
+a) main.tf:
+
+provider "aws" {
+  region = var.aws_region
+}
+
+resource "aws_instance" "example" {
+  ami           = var.instance_ami
+  instance_type = var.instance_type
+  key_name      = var.key_name
+}
+
+resource "aws_s3_bucket" "example" {
+  bucket = var.bucket_name
+  acl    = "private"
+}
+
+b) variables.tf:
+
+variable "aws_region" {
+  description = "Região da AWS para criar os recursos"
+  default     = "us-east-1"  # Substitua pela região desejada
+}
+
+variable "instance_ami" {
+  description = "ID da AMI para a instância EC2"
+  default     = "ami-0c55b159cbfafe1f0"  # AMI para a região us-east-1 (Amazon Linux 2)
+}
+
+variable "instance_type" {
+  description = "Tipo de instância EC2"
+  default     = "t2.micro"
+}
+
+variable "key_name" {
+  description = "Nome da chave SSH na AWS"
+  default     = "my-key-pair"  # Substitua pelo nome da sua chave SSH na AWS
+}
+
+variable "bucket_name" {
+  description = "Nome do bucket S3"
+  default     = "my-unique-bucket-name"  # Substitua por um nome único para o bucket S3
+}
+
+c) terraform.tfvars:
+
+aws_region = "us-west-2"
+instance_type = "t2.small"
+key_name = "my-key-pair-name"
+bucket_name = "my-unique-bucket-name"
+Passo 3: Implantação da infraestrutura
+
+Abra o terminal e navegue até o diretório do projeto "terraform-aws-project".
+
+Execute os seguintes comandos:
+
+
+terraform init    # Inicializa o projeto e baixa os plugins necessários
+terraform plan    # Visualiza as mudanças que serão feitas na infraestrutura
+terraform apply   # Cria/altera a infraestrutura na AWS com base no seu código
+O Terraform irá pedir confirmação para criar os recursos. Digite "yes" quando solicitado.
+
+Passo 4: Verificação
+
+Após a implantação, o Terraform exibirá informações sobre os recursos criados, incluindo o ID da instância EC2 e o nome do bucket S3.
+Passo 5: Destruindo a infraestrutura (opcional)
+
+Se desejar remover a infraestrutura criada, execute o seguinte comando:
+
+
+terraform destroy  # Remove todos os recursos criados pela sua configuração
+Lembre-se de que este é um exemplo básico para fins de demonstração. Você pode expandir o projeto para incluir outros recursos da AWS, como bancos de dados, balanceadores de carga, grupos de segurança, etc. Certifique-se sempre de revisar a documentação oficial do Terraform e da AWS para entender melhor os recursos disponíveis e as práticas recomendadas.

@@ -1,0 +1,30 @@
+stages:
+  - build
+  - test
+  - deploy
+
+backend_job:
+  stage: build
+  script:
+    - cd backend
+    - npm install
+
+frontend_job:
+  stage: build
+  script:
+    - cd frontend
+    - npm install
+
+test_job:
+  stage: test
+  script:
+    - cd backend
+    - npm test
+    - cd ../frontend
+    - npm test
+
+deploy_job:
+  stage: deploy
+  script:
+    - echo "Deploying the application..."
+    # Comandos para fazer o deploy da aplicação em um servidor de homologação ou produção.

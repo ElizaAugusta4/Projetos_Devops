@@ -1,0 +1,24 @@
+---
+- name: Install and Configure Nginx
+  hosts: all
+  become: true
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Start Nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Create a simple HTML file
+      template:
+        src: index.html.j2
+        dest: /var/www/html/index.html

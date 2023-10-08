@@ -1,0 +1,63 @@
+1. Instalação do Prometheus:
+
+Faça o download do Prometheus no site oficial: https://prometheus.io/download/
+Extraia o arquivo baixado e navegue até o diretório resultante.
+Dentro do diretório, você encontrará o arquivo de configuração prometheus.yml, que você precisará editar mais tarde.
+2. Configuração do Prometheus:
+
+Abra o arquivo prometheus.yml com um editor de texto.
+
+Defina os "scrape_configs" para indicar quais serviços e endpoints o Prometheus deve coletar métricas. Por exemplo, para monitorar um servidor web no endereço http://localhost:9090/metrics, adicione o seguinte ao arquivo:
+
+scrape_configs:
+  - job_name: 'web-server'
+    static_configs:
+    - targets: ['localhost:9090']
+Você pode configurar intervalos de coleta, labels e outras opções conforme suas necessidades.
+
+3. Iniciar o Prometheus:
+
+No terminal, navegue até o diretório onde o Prometheus foi instalado.
+Inicie o servidor Prometheus executando o seguinte comando:
+
+./prometheus --config.file=prometheus.yml
+O Prometheus começará a coletar métricas dos alvos especificados na configuração.
+
+4. Exportadores (Exporters):
+
+Caso suas métricas não estejam disponíveis em um formato que o Prometheus entenda, você precisará usar exportadores específicos para seus serviços ou aplicativos.
+Por exemplo, para coletar métricas do sistema operacional, você pode instalar o Node Exporter, que está disponível em https://github.com/prometheus/node_exporter.
+
+5. Instalação do Grafana:
+
+Faça o download do Grafana em https://grafana.com/get e escolha a versão adequada ao seu sistema operacional.
+Siga as instruções para instalação do Grafana no seu sistema.
+6. Configuração do Grafana:
+
+Após a instalação, acesse o Grafana através do navegador usando o endereço http://localhost:3000.
+Faça login com as credenciais padrão (usuário: admin, senha: admin) e altere a senha imediatamente.
+No menu lateral, vá para "Configuration" (Configurações) > "Data Sources" (Fontes de Dados) e adicione uma nova fonte de dados.
+Escolha o tipo "Prometheus" e configure o URL para apontar para o servidor onde o Prometheus está sendo executado, por exemplo, http://localhost:9090.
+Salve e teste a conexão para garantir que o Grafana pode acessar o Prometheus.
+7. Criação de Painéis:
+
+No Grafana, vá para o menu lateral e clique em "Create" (Criar) > "Dashboard" (Painel) > "Add new panel" (Adicionar novo painel).
+Selecione a fonte de dados do Prometheus que você configurou anteriormente.
+Crie consultas PromQL para extrair as métricas relevantes dos seus alvos do Prometheus. Por exemplo, para exibir a carga média do sistema, você pode usar a consulta: node_load1.
+Personalize o visual do gráfico, adicione títulos e descrições para tornar o painel informativo.
+
+8. Personalização do Painel:
+
+Explore as opções de personalização do painel no Grafana, como adicionar mais gráficos, tabelas, imagens ou alertas.
+Ajuste a resolução de tempo do painel para visualizar métricas em diferentes intervalos (por exemplo, últimos 5 minutos, 1 hora, 1 dia).
+
+9. Exploração e Ajustes:
+
+Use o painel do Grafana para monitorar o desempenho da sua aplicação e infraestrutura.
+Ajuste as consultas PromQL e o design do painel para atender às suas necessidades de monitoramento e visualização de dados.
+
+10. Monitoramento contínuo:
+
+Faça revisões periódicas do seu painel para garantir que você está monitorando os aspectos mais críticos do seu ambiente de desenvolvimento.
+Adicione novos painéis e alertas conforme necessário à medida que sua infraestrutura evolui.
+Lembre-se de que esse é um processo de aprendizado contínuo. À medida que você explora e utiliza o Prometheus e o Grafana, você descobrirá recursos adicionais e personalizações mais avançadas para atender às suas necessidades específicas.
